@@ -4,37 +4,37 @@ library(janitor)
 library(readr)
 
 # Download das bases --------------
-
+"desafio_3/data_raw/"
 ## MUNIC15 
 url_MUNIC15 <- "https://raw.githubusercontent.com/leobarone/FLS6397/master/data/Base_MUNIC_2015_xls.zip"
 
-download.file(url = url_MUNIC15, destfile = "data_raw/Base_MUNIC_2015.zip")
+download.file(url = url_MUNIC15, destfile = "desafio_3/data_raw/Base_MUNIC_2015.zip")
 
-unzip(zipfile = "data_raw/Base_MUNIC_2015.zip", exdir = "data_raw")
+unzip(zipfile = "desafio_3/data_raw/Base_MUNIC_2015.zip", exdir = "data_raw")
 
 ## DATASUS
 url_DATASUS <- "https://raw.githubusercontent.com/JonnyPhillips/FLS6397_2019/master/data/data_sus.csv"
-download.file(url = url_DATASUS, destfile = "data_raw/data_sus.csv")
+download.file(url = url_DATASUS, destfile = "desafio_3/data_raw/data_sus.csv")
 
 ## FINBRA
 url_FINBRA <- "https://raw.githubusercontent.com/leobarone/FLS6397/master/data/receitas_orc_finbra.zip"
-download.file(url = url_FINBRA, destfile = "data_raw/receitas_orc_finbra.zip")
-unzip(zipfile = "data_raw/receitas_orc_finbra.zip", exdir = "data_raw")
+download.file(url = url_FINBRA, destfile = "desafio_3/data_raw/receitas_orc_finbra.zip")
+unzip(zipfile = "desafio_3/data_raw/receitas_orc_finbra.zip", exdir = "data_raw")
 
 # Leitura dos dados -----------------------------
 
 ## data_sus
-data_sus <- read_csv(file = "data_raw/data_sus.csv", locale = locale(encoding = "ISO-8859-1"))
+data_sus <- read_csv(file = "desafio_3/data_raw/data_sus.csv", locale = locale(encoding = "ISO-8859-1"))
 data_sus2 <- data_sus %>% janitor::clean_names()
 
 ## munic15
-munic15 <- readxl::read_excel("data_raw/Base_MUNIC_2015.xls", 
+munic15 <- readxl::read_excel("desafio_3/data_raw/Base_MUNIC_2015.xls", 
                               sheet = "Articulação interinstitucional")
 
 munic15_2 <- munic15 %>% janitor::clean_names()
 
 ## finbra
-finbra <- read_delim("data_raw/finbra.csv", 
+finbra <- read_delim("desafio_3/data_raw/finbra.csv", 
                      ";", escape_double = FALSE, locale = locale(encoding = "ISO-8859-1"), 
                      trim_ws = TRUE, skip = 3)
 
@@ -57,6 +57,6 @@ datasus_finbra_munic15 <- inner_join(datasus_finbra, munic15_3, by = "cod_ibge")
 
 
 ## salvar base ------------
-saveRDS(datasus_finbra_munic15, file = "data_output/database.rds")
+saveRDS(datasus_finbra_munic15, file = "desafio_3/data_output/database.rds")
 
-database <- readRDS("data_output/database.rds")
+database <- readRDS("desafio_3/data_output/database.rds")
