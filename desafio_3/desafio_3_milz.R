@@ -4,7 +4,7 @@ library(janitor)
 library(readr)
 
 # Download das bases --------------
-"desafio_3/data_raw/"
+
 ## MUNIC15 
 url_MUNIC15 <- "https://raw.githubusercontent.com/leobarone/FLS6397/master/data/Base_MUNIC_2015_xls.zip"
 
